@@ -65,7 +65,12 @@ function App() {
       setRecipe(data)
     });
     // CLEAN UP THE EFFECT
-    return () => socket.disconnect();
+    return () => disconnect();
+  }
+
+  const disconnect = () => {
+    const socket = socketIOClient(ENDPOINT);
+    socket.disconnect();
   }
 
   const sortOptions = {
@@ -80,12 +85,12 @@ function App() {
   return (
     <div id="client_page">
       <div className="overlay"
-        style={isOverlay ? { display: "block" } : { display: "none" }}
+        style={isOverlay && url.length ? { display: "block" } : { display: "none" }}
       >
         {loadClient && url && isOverlay ?
           (<div className="popup">
             <div className="back">
-              <button onClick={() => { setIsOverlay(false); setRecipe({}) }}></button>
+              <button onClick={() => { setIsOverlay(false); setRecipe({}); setUrl(""); disconnect() }}></button>
             </div>
             {Object.keys(recipe).length ?
               <>
@@ -152,7 +157,7 @@ function App() {
                 placeholder="Paste URL Here"
                 value={url} onChange={e => setUrl(e.target.value)}
               />
-              <input type="button" value="Submit" onClick={() => { setIsOverlay(true); scrapeData() }} />
+              <input type="button" value="Submit" onClick={() => { setIsOverlay(true); scrapeData() }} disabled={url.length ? false : true} />
             </form>
           </div>
         </div>
