@@ -4,16 +4,6 @@
   height: 100%;
   margin: 1em;
 
-  .overlay {
-    background: rgba(0, 0, 0, 0.6);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-  }
-
   header {
     display: flex;
     justify-content: flex-start;
@@ -107,8 +97,6 @@
 
     .scrape-wrapper {
       .scrape {
-        text-align: center;
-
         form {
           display: flex;
           justify-content: flex-start;
@@ -149,90 +137,106 @@
   }
 }
 
-#popup_page {
-  width: 350px;
-  padding: 1em;
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 11;
 
-  header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  .popup {
+    width: 350px;
+    height: fit-content;
+    position: relative;
+    padding: 1em;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 8px;
+    z-index: 100;
 
-    h2 {
-      margin-bottom: 0;
-    }
+    header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-    img {
-      width: 35px;
-      height: auto;
-    }
-  }
-
-  .back {
-    button {
-      cursor: pointer;
-      width: 0;
-      height: 0;
-      position: absolute;
-      top: 17px;
-      left: 0px;
-      background: #fff;
-      border-top: 10px solid #fff;
-      border-bottom: 10px solid #fff;
-      border-left: 10px solid #fff;
-      border-right: 10px solid #f04a26;
-      transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-    }
-  }
-
-  .card-top {
-    section {
-      padding: 0.5em;
-    }
-  }
-
-  .dog-loader {
-    width: 100px;
-    height: 100px;
-    margin: 15px auto 50px auto;
-    text-align: center;
-
-    .dog-head {
-      z-index: 100;
-      animation: head-move 1s ease-in-out infinite;
+      h2 {
+        margin-bottom: 0;
+      }
 
       img {
-        width: 100%;
-        height: 100%;
+        width: 35px;
+        height: auto;
       }
     }
 
-    .dog-body {
-      height: 100%;
-      width: 100%;
-      margin: -62px auto 10px auto;
-      background-image: url("http://www.clker.com/cliparts/T/0/9/J/e/4/dog-body-md.png");
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
+    .back {
+      button {
+        cursor: pointer;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 17px;
+        left: 0px;
+        background: #fff;
+        border-top: 10px solid #fff;
+        border-bottom: 10px solid #fff;
+        border-left: 10px solid #fff;
+        border-right: 10px solid #f04a26;
+        transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+      }
     }
-  }
 
-  .dog-loader-p {
-    text-align: center;
-  }
-
-  @keyframes head-move {
-    50% {
-      transform: rotate(-10.5deg);
+    .card-top {
+      section {
+        padding: 0.5em;
+      }
     }
-  }
 
-  .buttons {
-    margin: 1em;
-    padding: 1em;
-    text-align: center;
+    .dog-loader {
+      width: 100px;
+      height: 100px;
+      margin: 15px auto 50px auto;
+      text-align: center;
+
+      .dog-head {
+        z-index: 100;
+        animation: head-move 1s ease-in-out infinite;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .dog-body {
+        height: 100%;
+        width: 100%;
+        margin: -62px auto 10px auto;
+        background-image: url("http://www.clker.com/cliparts/T/0/9/J/e/4/dog-body-md.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+
+    .dog-loader-p {
+      text-align: center;
+    }
+
+    @keyframes head-move {
+      50% {
+        transform: rotate(-10.5deg);
+      }
+    }
+
+    .buttons {
+      margin: 1em;
+      padding: 1em;
+      text-align: center;
+    }
   }
 }
 

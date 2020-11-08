@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import RecipeCard from './components/RecipeCard';
+import RecipeEntry from "./components/RecipeEntry";
 import './App.scss';
 import firebase from "./utils/firebase";
+
+import socketIOClient from "socket.io-client";
+
+const ENDPOINT = "https://still-hamlet-76887.herokuapp.com/?EIO=3&transport=polling";
 
 function App() {
 
@@ -10,7 +15,10 @@ function App() {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [sortBy, setSortBy] = useState("TIME_DESC");
   const [query, setQuery] = useState("");
+  const [loadClient, setLoadClient] = useState(true);
+  const [url, setUrl] = useState("");
   const [isOverlay, setIsOverlay] = useState(false);
+  const [recipe, setRecipe] = useState({});
 
   useEffect(() => {
 
@@ -56,7 +64,41 @@ function App() {
 
   return (
     <div id="client_page">
-      <div className="overlay" style={isOverlay ? { display: "block" } : { display: "none" }}></div>
+      <div className="overlay"
+        style={isOverlay ? { display: "block" } : { display: "none" }}
+      >
+        {loadClient && url && isOverlay ?
+          (<div className="popup">
+            <div className="back">
+              <button onClick={() => setIsOverlay(false)}></button>
+            </div>
+            {Object.keys(recipe).length ?
+              <>
+                <h3><em>Example Recipe Entry:</em></h3>
+                <RecipeEntry
+                  recipe={recipe}
+                  key={recipe.id}
+                  url={url}
+                // setIsClicked={setIsClicked}
+                />
+              </>
+              :
+              <>
+                <div className="dog-loader">
+                  <div className="dog-head">
+                    <img src="http://www.clker.com/cliparts/j/3/Z/Y/D/5/dog-head-md.png" />
+                  </div>
+                  <div className="dog-body">
+                  </div>
+                </div>
+                <p className="dog-loader-p"><em>Scraping data...</em></p>
+              </>
+            }
+          </div>)
+          :
+          <></>
+        }
+      </div>
       <header>
         <div className="titles">
           <h1>Dog-Ear</h1>
@@ -88,8 +130,12 @@ function App() {
           <div className="scrape">
             <form>
               <label htmlFor="#scrape-input">Create New Recipe Entry:</label>
-              <input type="text" id="scrape-input" placeholder="Paste URL Here" />
-              <input type="button" value="Submit" />
+              <input type="text"
+                id="scrape-input"
+                placeholder="Paste URL Here"
+                value={url} onChange={e => setUrl(e.target.value)}
+              />
+              <input type="button" value="Submit" onClick={() => setIsOverlay(true)} />
             </form>
           </div>
         </div>
