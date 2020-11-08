@@ -6,10 +6,11 @@ import firebase from "./utils/firebase";
 
 function App() {
 
-  const [allRecipes, setAllRecipes] = useState([])
-  const [filteredRecipes, setFilteredRecipes] = useState([])
-  const [sortBy, setSortBy] = useState("TIME_DESC")
-  const [query, setQuery] = useState("")
+  const [allRecipes, setAllRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [sortBy, setSortBy] = useState("TIME_DESC");
+  const [query, setQuery] = useState("");
+  const [isOverlay, setIsOverlay] = useState(false);
 
   useEffect(() => {
 
@@ -54,7 +55,8 @@ function App() {
   }
 
   return (
-    <div id="options_page">
+    <div id="client_page">
+      <div className="overlay" style={isOverlay ? { display: "block" } : { display: "none" }}></div>
       <header>
         <div className="titles">
           <h1>Dog-Ear</h1>
@@ -64,19 +66,32 @@ function App() {
           <img src="./graphics/dog.png" alt="Woof woof" />
         </div>
       </header>
-      <div className="dropdown">
-        <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
-          <option value="TIME_DESC">Newest</option>
-          <option value="TIME_ASC">Oldest</option>
-          <option value="TITLE_ASC">Title A-Z</option>
-          <option value="TITLE_DESC">Title Z-A</option>
-          <option value="COOKED">Has Been Cooked</option>
-          <option value="NOT_COOKED">Has NOT Been Cooked</option>
-        </select>
-      </div>
-      <div className="search-wrapper">
-        <div className="search">
-          <input type="text" placeholder="Search" value={query} onChange={e => setQuery(e.target.value)} />
+      <div className="interaction-wrapper">
+        <div className="search-sort">
+          <div className="dropdown">
+            <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
+              <option value="TIME_DESC">Newest</option>
+              <option value="TIME_ASC">Oldest</option>
+              <option value="TITLE_ASC">Title A-Z</option>
+              <option value="TITLE_DESC">Title Z-A</option>
+              <option value="COOKED">Has Been Cooked</option>
+              <option value="NOT_COOKED">Has NOT Been Cooked</option>
+            </select>
+          </div>
+          <div className="search-wrapper">
+            <div className="search">
+              <input type="text" placeholder="Search" value={query} onChange={e => setQuery(e.target.value)} />
+            </div>
+          </div>
+        </div>
+        <div className="scrape-wrapper">
+          <div className="scrape">
+            <form>
+              <label htmlFor="#scrape-input">Create New Recipe Entry:</label>
+              <input type="text" id="scrape-input" placeholder="Paste URL Here" />
+              <input type="button" value="Submit" />
+            </form>
+          </div>
         </div>
       </div>
       <div className="card-container">
