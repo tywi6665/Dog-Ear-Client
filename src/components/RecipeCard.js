@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import firebase from "../utils/firebase";
+// import firebase from "../utils/firebase";
 import moment from "moment";
 import ShowMoreText from 'react-show-more-text';
 import Popup from 'reactjs-popup';
@@ -64,7 +64,7 @@ const Card = ({ docID, title, imgSrc, author, description, timestamp, hasMade, n
     return (
         <div className="card">
             <div className="card-top">
-                <img src={imgSrc} />
+                <img src={imgSrc ? imgSrc : "./graphics/default_image.jpg"} />
                 <Popup trigger={<span className="delete"></span>} modal>
                     {close => (
                         <div className="modal">
