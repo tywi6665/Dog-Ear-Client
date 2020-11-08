@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Editable from "../components/Editable";
 import firebase from "../utils/firebase";
 
-const Card = ({ recipe, url, setIsClicked }) => {
+const Card = ({ recipe, url, setRecipe, setIsOverlay, setUrl }) => {
 
   const [title, setTitle] = useState(recipe.title);
   const [imgSrc, setImgSrc] = useState(recipe.imgSrc);
@@ -37,7 +37,9 @@ const Card = ({ recipe, url, setIsClicked }) => {
         notes,
         url
       })
-    setIsClicked(false)
+    setRecipe({})
+    setIsOverlay(false)
+    setUrl("")
   }
 
   const splitTags = tags => {

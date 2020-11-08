@@ -53,6 +53,21 @@ function App() {
     setFilteredRecipes(result);
   }, [query])
 
+  const scrapeData = () => {
+    // setIsClicked(true)
+    const socket = socketIOClient(ENDPOINT);
+    socket.on("connect", function () {
+      socket.emit("from_client", url);
+    });
+
+    socket.on("from_server", data => {
+      console.log('Connection to server established.', data);
+      setRecipe(data)
+    });
+    // CLEAN UP THE EFFECT
+    return () => socket.disconnect();
+  }
+
   const sortOptions = {
     "TIME_ASC": { column: "timestamp", direction: "asc" },
     "TIME_DESC": { column: "timestamp", direction: "desc" },
@@ -70,7 +85,7 @@ function App() {
         {loadClient && url && isOverlay ?
           (<div className="popup">
             <div className="back">
-              <button onClick={() => setIsOverlay(false)}></button>
+              <button onClick={() => { setIsOverlay(false); setRecipe({}) }}></button>
             </div>
             {Object.keys(recipe).length ?
               <>
@@ -79,7 +94,9 @@ function App() {
                   recipe={recipe}
                   key={recipe.id}
                   url={url}
-                // setIsClicked={setIsClicked}
+                  setRecipe={setRecipe}
+                  setIsOverlay={setIsOverlay}
+                  setUrl={setUrl}
                 />
               </>
               :
@@ -135,7 +152,7 @@ function App() {
                 placeholder="Paste URL Here"
                 value={url} onChange={e => setUrl(e.target.value)}
               />
-              <input type="button" value="Submit" onClick={() => setIsOverlay(true)} />
+              <input type="button" value="Submit" onClick={() => { setIsOverlay(true); scrapeData() }} />
             </form>
           </div>
         </div>
