@@ -7,8 +7,8 @@ import firebase from "./utils/firebase";
 
 import socketIOClient from "socket.io-client";
 
-// const ENDPOINT = "https://still-hamlet-76887.herokuapp.com/?EIO=3&transport=polling";
-const ENDPOINT = "http://localhost:4001/"
+const ENDPOINT = "https://still-hamlet-76887.herokuapp.com/?EIO=3&transport=polling";
+// const ENDPOINT = "http://localhost:4001/"
 
 function App() {
 
