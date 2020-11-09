@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/Dog-Ear-Client/static/css/main.594ffa51.chunk.css",
-    "main.js": "/Dog-Ear-Client/static/js/main.6dfd754b.chunk.js",
-    "main.js.map": "/Dog-Ear-Client/static/js/main.6dfd754b.chunk.js.map",
+    "main.css": "/Dog-Ear-Client/static/css/main.6079a0ae.chunk.css",
+    "main.js": "/Dog-Ear-Client/static/js/main.2be9589c.chunk.js",
+    "main.js.map": "/Dog-Ear-Client/static/js/main.2be9589c.chunk.js.map",
     "runtime-main.js": "/Dog-Ear-Client/static/js/runtime-main.cd34119e.js",
     "runtime-main.js.map": "/Dog-Ear-Client/static/js/runtime-main.cd34119e.js.map",
     "static/js/2.ba841688.chunk.js": "/Dog-Ear-Client/static/js/2.ba841688.chunk.js",
     "static/js/2.ba841688.chunk.js.map": "/Dog-Ear-Client/static/js/2.ba841688.chunk.js.map",
     "index.html": "/Dog-Ear-Client/index.html",
-    "static/css/main.594ffa51.chunk.css.map": "/Dog-Ear-Client/static/css/main.594ffa51.chunk.css.map",
+    "static/css/main.6079a0ae.chunk.css.map": "/Dog-Ear-Client/static/css/main.6079a0ae.chunk.css.map",
     "static/js/2.ba841688.chunk.js.LICENSE.txt": "/Dog-Ear-Client/static/js/2.ba841688.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.cd34119e.js",
     "static/js/2.ba841688.chunk.js",
-    "static/css/main.594ffa51.chunk.css",
-    "static/js/main.6dfd754b.chunk.js"
+    "static/css/main.6079a0ae.chunk.css",
+    "static/js/main.2be9589c.chunk.js"
   ]
 }
