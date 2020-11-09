@@ -39,7 +39,7 @@ const Card = ({ recipe, url, setRecipe, setIsOverlay, setUrl }) => {
       })
     setRecipe({})
     setIsOverlay(false)
-    setUrl("")
+    setUrl("");
   }
 
   const splitTags = tags => {

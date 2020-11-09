@@ -7,7 +7,8 @@ import firebase from "./utils/firebase";
 
 import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "https://still-hamlet-76887.herokuapp.com/?EIO=3&transport=polling";
+// const ENDPOINT = "https://still-hamlet-76887.herokuapp.com/?EIO=3&transport=polling";
+const ENDPOINT = "http://localhost:4001/"
 
 function App() {
 
@@ -54,7 +55,7 @@ function App() {
   }, [query])
 
   const scrapeData = () => {
-    // setIsClicked(true)
+    setIsOverlay(true)
     const socket = socketIOClient(ENDPOINT);
     socket.on("connect", function () {
       socket.emit("from_client", url);
@@ -62,16 +63,21 @@ function App() {
 
     socket.on("from_server", data => {
       console.log('Connection to server established.', data);
-      setRecipe(data)
+      setRecipe(data);
     });
+
     // CLEAN UP THE EFFECT
-    return () => disconnect();
+    return () => socket.disconnect();
   }
 
-  const disconnect = () => {
-    const socket = socketIOClient(ENDPOINT);
-    socket.disconnect();
-  }
+  // const disconnect = () => {
+  //   setIsOverlay(false);
+  //   setRecipe({});
+  //   setUrl("");
+  //   const socket = socketIOClient(ENDPOINT);
+  //   console.log("Disconnecting")
+  //   socket.disconnect();
+  // }
 
   const sortOptions = {
     "TIME_ASC": { column: "timestamp", direction: "asc" },
@@ -82,6 +88,17 @@ function App() {
     "NOT_COOKED": { column: "hasMade", direction: "asc" }
   }
 
+  const disconnect = () => {
+    setIsOverlay(false);
+    setRecipe({});
+    setUrl("");
+  }
+
+  const connect = (e) => {
+    e.preventDefault();
+    scrapeData();
+  }
+
   return (
     <div id="client_page">
       <div className="overlay"
@@ -89,11 +106,11 @@ function App() {
       >
         {loadClient && url && isOverlay ?
           (<div className="popup">
-            <div className="back">
-              <button onClick={() => { setIsOverlay(false); setRecipe({}); setUrl(""); disconnect() }}></button>
-            </div>
             {Object.keys(recipe).length ?
               <>
+                <div className="back">
+                  <button onClick={() => disconnect()}></button>
+                </div>
                 <h3><em>Example Recipe Entry:</em></h3>
                 <RecipeEntry
                   recipe={recipe}
@@ -150,14 +167,14 @@ function App() {
         </div>
         <div className="scrape-wrapper">
           <div className="scrape">
-            <form>
+            <form onSubmit={e => connect(e)}>
               <label htmlFor="#scrape-input">Create New Recipe Entry:</label>
               <input type="text"
                 id="scrape-input"
                 placeholder="Paste URL Here"
                 value={url} onChange={e => setUrl(e.target.value)}
               />
-              <input type="button" value="Submit" onClick={() => { setIsOverlay(true); scrapeData() }} disabled={url.length ? false : true} />
+              <input type="submit" value="Submit" disabled={url.length ? false : true} />
             </form>
           </div>
         </div>
