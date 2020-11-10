@@ -63,21 +63,23 @@ function App() {
 
     socket.on("from_server", data => {
       console.log('Connection to server established.', data);
-      setRecipe(data);
+      if (data === null) {
+        setRecipe({
+          title: "",
+          imgSrc: "",
+          author: "",
+          description: "",
+          tags: [],
+          notes: []
+        })
+      } else {
+        setRecipe(data);
+      }
     });
 
     // CLEAN UP THE EFFECT
     return () => socket.disconnect();
   }
-
-  // const disconnect = () => {
-  //   setIsOverlay(false);
-  //   setRecipe({});
-  //   setUrl("");
-  //   const socket = socketIOClient(ENDPOINT);
-  //   console.log("Disconnecting")
-  //   socket.disconnect();
-  // }
 
   const sortOptions = {
     "TIME_ASC": { column: "timestamp", direction: "asc" },
