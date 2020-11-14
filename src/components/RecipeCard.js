@@ -1,5 +1,4 @@
-import React, { useState, useRef } from 'react';
-// import firebase from "../utils/firebase";
+import React, { useState } from 'react';
 import moment from "moment";
 import ShowMoreText from 'react-show-more-text';
 import Popup from 'reactjs-popup';
@@ -10,6 +9,9 @@ const Card = ({ docID, title, imgSrc, author, description, timestamp, hasMade, n
     const [tagsToAdd, setTagsToAdd] = useState("");
     const [notesToAdd, setNotesToAdd] = useState("");
     const [isEditing, setIsEditing] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [currentTab, setCurrentTab] = useState(1)
+    const closeModal = () => setOpen(false);
 
     const add = (e, field) => {
         e.preventDefault();
@@ -61,38 +63,31 @@ const Card = ({ docID, title, imgSrc, author, description, timestamp, hasMade, n
         }
     }
 
-    return (
-        <div className="card">
-            <div className="card-top">
-                <img src={imgSrc ? imgSrc : "./graphics/default_image.jpg"} />
-                <Popup trigger={<span className="delete"></span>} modal>
-                    {close => (
-                        <div className="modal">
-                            <button className="close" onClick={close}>X</button>
-                            <div className="header">Are You Sure that You Want to Delete this Recipe???</div>
-                            <button className="delete" onClick={() => deleteEntry(docID)}>Delete this Recipe Entry</button>
-                        </div>
-                    )}
-                </Popup>
-            </div>
-            <div className="card-bottom">
-                <div className="title-wrapper">
-                    <h3>{title}</h3>
-                    <div className="checkbox-wrapper">
-                        <input type="checkbox" className="has-made" name="has-made"
+    const renderTab1 = () => {
+        return (
+            <>
+                <div className="title">
+                    <h2>{title}</h2>
+                </div>
+                <div className="title">
+                    <p>Author: <strong><em>{author.length ? author : "No Assigned Author"}</em></strong></p>
+                </div>
+                <div className="rating-hasMade">
+                    <div className="rating">
+
+                    </div>
+                    <div className="has-made">
+                        <input type="checkbox" className="check" name="check"
                             value={hasMade}
                             onChange={() => console.log("click")}
                             checked={hasMade}
                         />
                         <label
-                            htmlFor="has-made"
+                            htmlFor="check"
                             onClick={() => updateItem(docID, hasMade)}
-                        >
-                            Cooked
-                        </label>
+                        >Cooked</label>
                     </div>
                 </div>
-                <p>Author: <strong><em>{author.length ? author : "No Assigned Author"}</em></strong></p>
                 <div className="description">
                     <ShowMoreText
                         lines={5}
@@ -105,101 +100,163 @@ const Card = ({ docID, title, imgSrc, author, description, timestamp, hasMade, n
                         {description}
                     </ShowMoreText>
                 </div>
-                <div>
-                    <div className="tags-header">
-                        <p><strong>Tagged As:</strong></p>
-                        {isEditing ? (
-                            <form
-                                onSubmit={e => add(e, "tags")}
-                            >
-                                <textarea
-                                    name="tags"
-                                    placeholder="Enter ',' separated tags"
-                                    rows="2"
-                                    value={tagsToAdd}
-                                    onChange={e => setTagsToAdd(e.target.value)}
-                                />
-                                <button
-                                    type="submit"
-                                >{tagsToAdd.length > 0 ? "Submit" : "Close"}</button>
-                            </form>
-                        ) : (
-                                <p className="add" onClick={() => setIsEditing(true)}>+</p>
-                            )}
-                    </div>
-                    {tags.length > 0 ?
-                        (
-                            <ul className="tags">
-                                {tags.map((tag, i) => (
+            </>
+        )
+    }
+
+    const renderTab2 = () => {
+        return (
+            <div className="tags-wrapper">
+                <div className="tags-header">
+                    <p><strong>Tagged As:</strong></p>
+                    {isEditing ? (
+                        <form
+                            onSubmit={e => add(e, "tags")}
+                        >
+                            <textarea
+                                name="tags"
+                                placeholder="Enter ',' delimited tags"
+                                rows="2"
+                                value={tagsToAdd}
+                                onChange={e => setTagsToAdd(e.target.value)}
+                            />
+                            <button
+                                type="submit"
+                            >{tagsToAdd.length > 0 ? "Submit" : "Close"}</button>
+                        </form>
+                    ) : (
+                            <p className="add" onClick={() => setIsEditing(true)}>+</p>
+                        )}
+                </div>
+                {tags.length > 0 ?
+                    (
+                        <ul className="tags">
+                            {tags.map((tag, i) => (
+                                <li
+                                    key={docID + i}
+                                >{tag}
+                                    <div className="delete-tag" onClick={(e) => remove(e, "tags")}>
+                                        <span>x</span>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    )
+                    : (
+                        <p><em>This recipe has not been tagged yet</em></p>
+                    )
+                }
+                <div className="notes-wrapper">
+                    <div className="notes">
+                        {notes.length > 0 ? (
+                            <ol>
+                                {notes.map(note => (
                                     <li
-                                        key={docID + i}
-                                    >{tag}
-                                        <div className="delete-tag" onClick={(e) => remove(e, "tags")}>
+                                        key={note}
+                                    >{note}
+                                        <div className="delete-note" onClick={(e) => remove(e, "notes")}>
                                             <span>x</span>
                                         </div>
                                     </li>
                                 ))}
-                            </ul>
-                        )
-                        : (
-                            <p>This recipe has not been tagged yet</p>
-                        )
-                    }
-                </div>
-                <div>
-                    <Popup trigger={
-                        notes.length > 0 ? (
-                            <div className="see-notes note">See Notes</div>
+                            </ol>
                         ) : (
-                                <div className="make-notes note">Make a Note</div>
-                            )
-                    } modal>
-                        {close => (
-                            <div className="modal notes-modal">
-                                <button className="close" onClick={close}>X</button>
-                                <div className="header">{title} Notes</div>
-                                <div className="content">
-                                    {notes.length > 0 ? (
-                                        <ol>
-                                            {notes.map(note => (
-                                                <li
-                                                    key={note}
-                                                >{note}
-                                                    <div className="delete-note" onClick={(e) => remove(e, "notes")}>
-                                                        <span>x</span>
-                                                    </div>
-                                                </li>
-                                            ))}
-                                        </ol>
-                                    ) : (
-                                            <p>There are no notes for this recipe yet.</p>
-                                        )}
-                                </div>
-                                <div className="actions">
-                                    <form
-                                        onSubmit={e => add(e, "notes")}
-                                    >
-                                        <textarea
-                                            name="notes"
-                                            placeholder="Add additional notes here."
-                                            rows="5"
-                                            value={notesToAdd}
-                                            onChange={e => setNotesToAdd(e.target.value)}
-                                        />
-                                        <button type="submit">Add Note</button>
-                                    </form>
+                                <p><em>There are no notes for this recipe yet.</em></p>
+                            )}
+                    </div>
+                    <div className="add-notes">
+                        <form
+                            onSubmit={e => add(e, "notes")}
+                        >
+                            <textarea
+                                name="notes"
+                                placeholder="Add additional notes here."
+                                rows="3"
+                                value={notesToAdd}
+                                onChange={e => setNotesToAdd(e.target.value)}
+                            />
+                            <button type="submit">Add Note</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <div className="card">
+            <div className="card-top">
+                <img
+                    src={imgSrc ? imgSrc : "./graphics/default_image.jpg"}
+                    onClick={() => setOpen(o => !o)}
+                />
+                <Popup trigger={<span className="delete"></span>} modal>
+                    {close => (
+                        <div className="delete-modal">
+                            <button className="close" onClick={close}>X</button>
+                            <div className="header">Are You Sure that You Want to Delete this Recipe???</div>
+                            <button className="delete" onClick={() => deleteEntry(docID)}>Delete this Recipe Entry</button>
+                        </div>
+                    )}
+                </Popup>
+            </div>
+            <div className="card-bottom">
+                <div className="title-wrapper">
+                    <h4 onClick={() => setOpen(o => !o)}>{title}</h4>
+                    <p>Author: <strong><em>{author.length ? author : "No Assigned Author"}</em></strong></p>
+                </div>
+                <div className="link-wrapper">
+                    <div className="link">
+                        <a href={url} target="_blank">Recipe Link</a>
+                    </div>
+                    <span className="timestamp">Saved On: {moment(timestamp).format("MMMM Do YYYY")}</span>
+                </div>
+            </div>
+
+            <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                <div className="modal recipe-modal">
+                    <div className="recipe-modal-central">
+                        <div className="recipe-modal-inner">
+                            <button className="close" onClick={closeModal}>X</button>
+                            <div className="modal-img">
+                                <div className="modal-img-back">
+                                    <img
+                                        src={imgSrc ? imgSrc : "./graphics/default_image.jpg"} />
                                 </div>
                             </div>
-                        )}
-                    </Popup>
+                            <div className="modal-info">
+                                <div className="modal-info-inner">
+                                    <div className="modal-info-inner-tabs">
+                                        <ul>
+                                            <li className={currentTab === 1 ? "active" : ""}
+                                                onClick={() => setCurrentTab(1)}>
+                                                <h4>INFO</h4>
+                                            </li>
+                                            <li className={currentTab === 2 ? "active" : ""}
+                                                onClick={() => setCurrentTab(2)}>
+                                                <h4>TAGS/NOTES</h4>
+                                            </li>
+                                            <li>
+                                                <h4><a href={url} target="_blank">GO TO RECIPE</a></h4>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="modal-info-text">
+                                        {currentTab === 1 ? (
+                                            [renderTab1()]
+                                        ) : (
+                                                [renderTab2()]
+                                            )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="link">
-                    <a href={url} target="_blank">Recipe Link</a>
-                </div>
-                <span className="timestamp">Saved On: {moment(timestamp).format("MMMM Do YYYY")}</span>
-            </div>
+            </Popup>
         </div>
     );
 }
 
 export default Card;
+

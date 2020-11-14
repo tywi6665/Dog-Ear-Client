@@ -163,7 +163,10 @@ function App() {
           </div>
           <div className="search-wrapper">
             <div className="search">
-              <input type="text" placeholder="Search" value={query} onChange={e => setQuery(e.target.value)} />
+              <input type="search" placeholder="Search" value={query} onChange={e => setQuery(e.target.value)} />
+              <span
+                className="cancel"
+                onClick={() => setQuery("")}>x</span>
             </div>
           </div>
         </div>
@@ -172,39 +175,43 @@ function App() {
             <form onSubmit={e => connect(e)}>
               <label htmlFor="#scrape-input">Create New Recipe Entry:</label>
               <input type="text"
+                className="scrape-text"
                 id="scrape-input"
                 placeholder="Paste URL Here"
                 value={url} onChange={e => setUrl(e.target.value)}
               />
-              <input type="submit" value="Submit" disabled={url.length ? false : true} />
+              <input className="scrape-submit"
+                type="submit"
+                value="Submit"
+                disabled={url.length ? false : true} />
             </form>
           </div>
         </div>
       </div>
       <div className="card-container">
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{ 300: 1, 500: 2, 750: 3, 900: 4 }}
+        {/* <ResponsiveMasonry
+          columnsCountBreakPoints={{ 300: 1, 550: 2, 800: 3, 1000: 4 }}
         >
           <Masonry
             gutter={"1em"}
-          >
-            {filteredRecipes.map((recipe) => (
-              <RecipeCard
-                key={recipe.id}
-                docID={recipe.id}
-                title={recipe.title}
-                imgSrc={recipe.imgSrc}
-                author={recipe.author}
-                description={recipe.description}
-                timestamp={recipe.timestamp}
-                hasMade={recipe.hasMade}
-                tags={recipe.tags}
-                notes={recipe.notes}
-                url={recipe.url}
-              />
-            ))}
-          </Masonry>
-        </ResponsiveMasonry>
+          > */}
+        {filteredRecipes.map((recipe) => (
+          <RecipeCard
+            key={recipe.id}
+            docID={recipe.id}
+            title={recipe.title}
+            imgSrc={recipe.imgSrc}
+            author={recipe.author}
+            description={recipe.description}
+            timestamp={recipe.timestamp}
+            hasMade={recipe.hasMade}
+            tags={recipe.tags}
+            notes={recipe.notes}
+            url={recipe.url}
+          />
+        ))}
+        {/* </Masonry>
+        </ResponsiveMasonry> */}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 {
   "short_name": "Dog-Ear Client",
   "name": "Dog-Ear Client",
+  "version": "0.0.3",
   "icons": [
     {
       "src": "favicon.ico",
