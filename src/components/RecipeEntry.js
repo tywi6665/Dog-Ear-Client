@@ -8,6 +8,7 @@ const Card = ({ recipe, url, setRecipe, setIsOverlay, setUrl }) => {
   const [imgSrc, setImgSrc] = useState(recipe.imgSrc);
   const [description, setDescription] = useState(recipe.description);
   const [author, setAuthor] = useState(recipe.author);
+  const [rating, setRating] = useState(0);
   const [tags, setTags] = useState(recipe.tags);
   const [allNotes, setAllNotes] = useState("");
   const [hasMade, setHasMade] = useState(false);
@@ -30,6 +31,7 @@ const Card = ({ recipe, url, setRecipe, setIsOverlay, setUrl }) => {
         title,
         imgSrc,
         author,
+        rating,
         description,
         timestamp: Date.now(),
         tags,
