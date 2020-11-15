@@ -10,7 +10,7 @@
   height: 100%;
   margin: 1em;
 
-  header {
+  .page-header {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -171,7 +171,11 @@
   bottom: 0;
   z-index: 11;
 
-  .popup {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .entry_popup {
     width: 350px;
     height: fit-content;
     position: relative;
@@ -181,42 +185,56 @@
     border-radius: 8px;
     z-index: 100;
 
-    header {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    .card {
+      height: fit-content;
+      width: 100%;
+
+      .title-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
       h2 {
         margin-bottom: 0;
       }
 
-      img {
-        width: 35px;
-        height: auto;
+      .card-top {
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .card-bottom {
+        height: fit-content;
       }
     }
 
-    .back {
-      button {
-        cursor: pointer;
-        width: 0;
-        height: 0;
-        position: absolute;
-        top: 17px;
-        left: 0px;
-        background: #fff;
-        border-top: 10px solid #fff;
-        border-bottom: 10px solid #fff;
-        border-left: 10px solid #fff;
-        border-right: 10px solid #f04a26;
-        transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-      }
-    }
+    .popup-header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
 
-    .card-top {
-      section {
-        padding: 0.5em;
+      h3 {
+        margin-left: 15px;
+      }
+
+      .back {
+        button {
+          cursor: pointer;
+          width: 0;
+          height: 0;
+          // position: absolute;
+          // top: 17px;
+          // left: 0px;
+          background: #fff;
+          border-top: 10px solid #fff;
+          border-bottom: 10px solid #fff;
+          border-left: 10px solid #fff;
+          border-right: 10px solid #f04a26;
+          transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+        }
       }
     }
 

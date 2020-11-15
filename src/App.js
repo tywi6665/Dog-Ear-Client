@@ -106,13 +106,15 @@ function App() {
         style={isOverlay && url.length ? { display: "block" } : { display: "none" }}
       >
         {loadClient && url && isOverlay ?
-          (<div className="popup">
+          (<div className="entry_popup">
             {Object.keys(recipe).length ?
               <>
-                <div className="back">
-                  <button onClick={() => disconnect()}></button>
-                </div>
-                <h3><em>Example Recipe Entry:</em></h3>
+                <header class="popup-header">
+                  <div className="back">
+                    <button onClick={() => disconnect()}></button>
+                  </div>
+                  <h3><em>Example Recipe Entry:</em></h3>
+                </header>
                 <RecipeEntry
                   recipe={recipe}
                   key={recipe.id}
@@ -139,7 +141,7 @@ function App() {
           <></>
         }
       </div>
-      <header>
+      <header class="page-header">
         <div className="titles">
           <h1>Dog-Ear</h1>
           <h2>Recipe Repository</h2>
