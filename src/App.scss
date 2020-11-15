@@ -507,14 +507,16 @@
 
             ul {
               display: flex;
-              justify-content: flex-start;
+              justify-content: space-evenly;
               align-items: center;
               height: 60px;
+              padding-left: 0;
 
               li {
-                width: 33%;
+                width: auto;
                 list-style: none;
                 font-size: 16px;
+                // margin-right: 10px;
 
                 h4 {
                   cursor: pointer;
@@ -544,6 +546,10 @@
                     text-decoration: none;
                   }
                 }
+
+                // &:first-child {
+                //   width: 25%;
+                // }
 
                 &:last-child {
                   a {
@@ -580,6 +586,10 @@
               justify-content: space-between;
               align-items: center;
               // margin: 10px 0;
+
+              .rating {
+                padding-bottom: 15px;
+              }
 
               .has-made {
                 padding-bottom: 15px;

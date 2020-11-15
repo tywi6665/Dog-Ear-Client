@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
+// import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import RecipeCard from './components/RecipeCard';
 import RecipeEntry from "./components/RecipeEntry";
 import './App.scss';
@@ -202,6 +202,7 @@ function App() {
             title={recipe.title}
             imgSrc={recipe.imgSrc}
             author={recipe.author}
+            rating={recipe.rating}
             description={recipe.description}
             timestamp={recipe.timestamp}
             hasMade={recipe.hasMade}

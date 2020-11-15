@@ -63,4 +63,12 @@ export function updateItem(id, boolean) {
         .update({
             "hasMade": !boolean
         })
-} 
+}
+
+export function updateRating(id, rating) {
+    reference
+        .doc(id)
+        .update({
+            "rating": rating
+        })
+}

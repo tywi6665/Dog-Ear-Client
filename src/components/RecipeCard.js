@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import moment from "moment";
 import ShowMoreText from 'react-show-more-text';
 import Popup from 'reactjs-popup';
-import { addItems, deleteEntry, removeItems, updateItem } from "../helpers/functions";
+import ReactStars from "react-rating-stars-component";
+import { addItems, deleteEntry, removeItems, updateItem, updateRating } from "../helpers/functions";
 
-const Card = ({ docID, title, imgSrc, author, description, timestamp, hasMade, notes, tags, url }) => {
+const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, hasMade, notes, tags, url }) => {
 
     const [tagsToAdd, setTagsToAdd] = useState("");
     const [notesToAdd, setNotesToAdd] = useState("");
@@ -63,6 +64,10 @@ const Card = ({ docID, title, imgSrc, author, description, timestamp, hasMade, n
         }
     }
 
+    const ratingChanged = (rating) => {
+        updateRating(docID, rating)
+    }
+
     const renderTab1 = () => {
         return (
             <>
@@ -74,7 +79,13 @@ const Card = ({ docID, title, imgSrc, author, description, timestamp, hasMade, n
                 </div>
                 <div className="rating-hasMade">
                     <div className="rating">
-
+                        <ReactStars
+                            size={30}
+                            value={rating}
+                            isHalf={true}
+                            activeColor="#f04a26"
+                            onChange={ratingChanged}
+                        />
                     </div>
                     <div className="has-made">
                         <input type="checkbox" className="check" name="check"
