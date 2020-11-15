@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import moment from "moment";
 import ShowMoreText from 'react-show-more-text';
 import Popup from 'reactjs-popup';
-// import ReactStars from "react-rating-stars-component";
 import StarRatings from 'react-star-ratings';
 import { addItems, deleteEntry, removeItems, updateItem, updateRating } from "../helpers/functions";
 
@@ -14,7 +13,7 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
     const [open, setOpen] = useState(false);
     const [newRating, setNewRating] = useState(rating)
     const [currentTab, setCurrentTab] = useState(1)
-    const closeModal = () => setOpen(false);
+    const closeModal = () => [setOpen(false), setCurrentTab(1)]
 
     const add = (e, field) => {
         e.preventDefault();
@@ -92,12 +91,6 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
                             starSpacing="3px"
                             name='rating'
                         />
-                        {/* <ReactStars
-                            size={30}
-                            value={newRating}
-                            activeColor="#f04a26"
-                            onChange={ratingChanged}
-                        /> */}
                         <button onClick={() => ratingChanged(0)}>Reset</button>
                     </div>
                     <div className="has-made">
