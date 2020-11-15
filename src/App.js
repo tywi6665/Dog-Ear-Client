@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import RecipeCard from './components/RecipeCard';
 import RecipeEntry from "./components/RecipeEntry";
 import './App.scss';
@@ -189,12 +188,6 @@ function App() {
         </div>
       </div>
       <div className="card-container">
-        {/* <ResponsiveMasonry
-          columnsCountBreakPoints={{ 300: 1, 550: 2, 800: 3, 1000: 4 }}
-        >
-          <Masonry
-            gutter={"1em"}
-          > */}
         {filteredRecipes.map((recipe) => (
           <RecipeCard
             key={recipe.id}
@@ -211,8 +204,6 @@ function App() {
             url={recipe.url}
           />
         ))}
-        {/* </Masonry>
-        </ResponsiveMasonry> */}
       </div>
     </div>
   );
