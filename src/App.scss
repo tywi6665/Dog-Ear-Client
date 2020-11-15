@@ -176,7 +176,7 @@
   }
 
   .entry_popup {
-    width: 350px;
+    width: 80%;
     height: fit-content;
     position: relative;
     padding: 1em;
@@ -200,9 +200,11 @@
       }
 
       .card-top {
+        text-align: center;
+
         img {
-          width: 100%;
-          height: auto;
+          width: auto;
+          height: 100%;
         }
       }
 
@@ -359,11 +361,68 @@
         overflow: hidden;
       }
 
-      p {
-        margin: 0;
-        height: 40px;
-        max-height: 40px;
-        overflow: hidden;
+      // p {
+      //   margin: 0;
+      //   height: 40px;
+      //   max-height: 40px;
+      //   overflow: hidden;
+      // }
+
+      .rating-hasMade {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        // margin: 10px 0;
+
+        .rating {
+          padding-bottom: 15px;
+
+          button {
+            margin-left: 10px;
+            cursor: pointer;
+            text-align: center;
+            padding: 5px;
+            background-color: #f04a26;
+            color: #fff;
+            border: 1px solid #f04a26;
+            border-radius: 4px;
+          }
+        }
+
+        .has-made {
+          padding-bottom: 15px;
+
+          .check {
+            display: none;
+          }
+
+          label {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(139, 139, 139, 0.3);
+            color: #adadad;
+            border-radius: 8px;
+            white-space: nowrap;
+            margin: 3px 0px 3px 5px;
+            user-select: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+          }
+
+          input[type="checkbox"]:checked + label::before {
+            transform: rotate(-360deg);
+            transition: transform 0.3s ease-in-out;
+          }
+
+          input[type="checkbox"]:checked + label {
+            border: 2px solid #f04a26;
+            background-color: rgba(240, 74, 38, 0.6);
+            color: #fff;
+            transition: all 0.2s;
+          }
+        }
       }
     }
 
@@ -607,6 +666,17 @@
 
               .rating {
                 padding-bottom: 15px;
+
+                button {
+                  margin-left: 10px;
+                  cursor: pointer;
+                  text-align: center;
+                  padding: 5px;
+                  background-color: #f04a26;
+                  color: #fff;
+                  border: 1px solid #f04a26;
+                  border-radius: 4px;
+                }
               }
 
               .has-made {

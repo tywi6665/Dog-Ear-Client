@@ -109,7 +109,7 @@ function App() {
           (<div className="entry_popup">
             {Object.keys(recipe).length ?
               <>
-                <header class="popup-header">
+                <header className="popup-header">
                   <div className="back">
                     <button onClick={() => disconnect()}></button>
                   </div>
@@ -141,7 +141,7 @@ function App() {
           <></>
         }
       </div>
-      <header class="page-header">
+      <header className="page-header">
         <div className="titles">
           <h1>Dog-Ear</h1>
           <h2>Recipe Repository</h2>

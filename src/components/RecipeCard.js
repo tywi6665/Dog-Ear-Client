@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import moment from "moment";
 import ShowMoreText from 'react-show-more-text';
 import Popup from 'reactjs-popup';
-import ReactStars from "react-rating-stars-component";
+// import ReactStars from "react-rating-stars-component";
+import StarRatings from 'react-star-ratings';
 import { addItems, deleteEntry, removeItems, updateItem, updateRating } from "../helpers/functions";
 
 const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, hasMade, notes, tags, url }) => {
@@ -11,6 +12,7 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
     const [notesToAdd, setNotesToAdd] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [open, setOpen] = useState(false);
+    const [newRating, setNewRating] = useState(rating)
     const [currentTab, setCurrentTab] = useState(1)
     const closeModal = () => setOpen(false);
 
@@ -65,6 +67,7 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
     }
 
     const ratingChanged = (rating) => {
+        setNewRating(rating)
         updateRating(docID, rating)
     }
 
@@ -79,13 +82,23 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
                 </div>
                 <div className="rating-hasMade">
                     <div className="rating">
-                        <ReactStars
+                        <StarRatings
+                            rating={newRating}
+                            starRatedColor="#f04a26"
+                            starEmptyColor="#808080"
+                            changeRating={ratingChanged}
+                            numberOfStars={5}
+                            starDimension="25px"
+                            starSpacing="3px"
+                            name='rating'
+                        />
+                        {/* <ReactStars
                             size={30}
-                            value={rating}
-                            isHalf={true}
+                            value={newRating}
                             activeColor="#f04a26"
                             onChange={ratingChanged}
-                        />
+                        /> */}
+                        <button onClick={() => ratingChanged(0)}>Reset</button>
                     </div>
                     <div className="has-made">
                         <input type="checkbox" className="check" name="check"
@@ -214,7 +227,32 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
             <div className="card-bottom">
                 <div className="title-wrapper">
                     <h4 onClick={() => setOpen(o => !o)}>{title}</h4>
-                    <p>Author: <strong><em>{author.length ? author : "No Assigned Author"}</em></strong></p>
+                    <div className="rating-hasMade">
+                        <div className="rating">
+                            <StarRatings
+                                rating={newRating}
+                                starRatedColor="#f04a26"
+                                starEmptyColor="#808080"
+                                changeRating={ratingChanged}
+                                numberOfStars={5}
+                                starDimension="22px"
+                                starSpacing="2px"
+                                name='rating'
+                            />
+                        </div>
+                        <div className="has-made">
+                            <input type="checkbox" className="check" name="check"
+                                value={hasMade}
+                                onChange={() => console.log("click")}
+                                checked={hasMade}
+                            />
+                            <label
+                                htmlFor="check"
+                                onClick={() => updateItem(docID, hasMade)}
+                            >Cooked</label>
+                        </div>
+                    </div>
+                    {/* <p>Author: <strong><em>{author.length ? author : "No Assigned Author"}</em></strong></p> */}
                 </div>
                 <div className="link-wrapper">
                     <div className="link">
