@@ -105,7 +105,7 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
                         >Cooked</label>
                     </div>
                 </div>
-                <div className="description">
+                <div className={description ? "description" : "description description-em"}>
                     <ShowMoreText
                         lines={5}
                         more='Show more'
@@ -114,7 +114,7 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
                         expanded={false}
                         width={0}
                     >
-                        {description}
+                        {description ? description : "There is no description for this recipe."}
                     </ShowMoreText>
                 </div>
             </>

@@ -142,7 +142,7 @@
             cursor: pointer;
             text-align: center;
             padding: 5px;
-            margin: 4px;
+            margin-top: 8px;
             background-color: #f04a26;
             color: #fff;
             border: 1px solid #f04a26;
@@ -361,20 +361,13 @@
         overflow: hidden;
       }
 
-      // p {
-      //   margin: 0;
-      //   height: 40px;
-      //   max-height: 40px;
-      //   overflow: hidden;
-      // }
-
       .rating-hasMade {
         width: 100%;
         height: fit-content;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        // margin: 10px 0;
+        margin-top: 10px;
 
         .rating {
           padding-bottom: 15px;
@@ -716,6 +709,10 @@
             .description {
               width: 100%;
 
+              &.description-em {
+                font-style: italic;
+              }
+
               .description-anchor {
                 width: 100%;
                 display: block;
@@ -957,5 +954,9 @@ button.close {
 @media only screen and (max-width: 600px) {
   .interaction-wrapper {
     flex-direction: column;
+
+    form {
+      margin-top: 10px;
+    }
   }
 }
