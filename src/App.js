@@ -13,6 +13,7 @@ function App() {
 
   const [allRecipes, setAllRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [tagsList, setTagsList] = useState([])
   const [sortBy, setSortBy] = useState("TIME_DESC");
   const [query, setQuery] = useState("");
   const [loadClient, setLoadClient] = useState(true);
@@ -45,6 +46,20 @@ function App() {
   }, [sortBy])
 
   useEffect(() => {
+    let arr = []
+    allRecipes.forEach(recipe => {
+      let tags = recipe.tags
+      tags.forEach(tag => {
+        let cleanedTag = tag.toLowerCase().trim()
+        if (!arr.includes(cleanedTag)) {
+          arr.push(cleanedTag)
+        }
+      })
+    })
+    setTagsList(arr.sort())
+  }, [allRecipes])
+
+  useEffect(() => {
     const searchAllRegex = query && new RegExp(`${query}`, "gi");
     const result = allRecipes.filter(
       recipe =>
@@ -54,7 +69,7 @@ function App() {
   }, [query])
 
   const scrapeData = () => {
-    setIsOverlay(true)
+    setIsOverlay(true);
     const socket = socketIOClient(ENDPOINT);
     socket.on("connect", function () {
       socket.emit("from_client", url);
