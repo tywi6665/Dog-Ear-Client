@@ -142,28 +142,33 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
                         <form
                             onSubmit={e => add(e, "tags")}
                         >
-                            <textarea
-                                name="tags"
-                                placeholder="Enter ',' delimited tags"
-                                rows="2"
-                                value={tagsToAdd}
-                                onChange={e => setTagsToAdd(e.target.value)}
-                            />
+                            <div className="inner-form">
+                                <textarea
+                                    name="tags"
+                                    placeholder="Enter ',' delimited tags"
+                                    rows="2"
+                                    value={tagsToAdd}
+                                    onChange={e => setTagsToAdd(e.target.value)}
+                                />
+                                {/* <div className="dropdown">
+                                    <div> */}
+                                <select
+                                    value={quickTag}
+                                    onChange={e => join(e.currentTarget.value)}>
+                                    <option value="" disabled={true}>Quick Add Tags</option>
+                                    {tagsList.map((tag, i) => (
+                                        <option
+                                            value={tag}
+                                            key={tag + i}
+                                        >{tag}</option>
+                                    ))}
+                                </select>
+                                {/* </div>
+                                </div> */}
+                            </div>
                             <button
                                 type="submit"
                             >{tagsToAdd.length > 0 ? "Submit" : "Close"}</button>
-                            <select
-                                value={quickTag}
-                                // defaultValue=""
-                                onChange={e => join(e.currentTarget.value)}>
-                                <option value="" disabled={true}>Quick Add Tags</option>
-                                {tagsList.map((tag, i) => (
-                                    <option
-                                        value={tag}
-                                        key={tag + i}
-                                    >{tag}</option>
-                                ))}
-                            </select>
                         </form>
                     ) : (
                             <p className="add" onClick={() => setIsEditing(true)}>+</p>

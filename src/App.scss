@@ -730,15 +730,51 @@
 
                 form {
                   display: flex;
-                  justify-content: space-between;
+                  justify-content: flex-end;
                   align-items: center;
+                  margin-bottom: 10px;
 
-                  textarea {
-                    resize: none;
-                    border-bottom: 10px;
-                    border: 1px solid #f04a26;
-                    border-radius: 8px;
-                    overflow: hidden;
+                  .inner-form {
+                    width: min-content;
+                    height: 100%;
+                    position: relative;
+
+                    textarea {
+                      resize: none;
+                      height: 100%;
+                      border-bottom: 10px;
+                      border: 1px solid #f04a26;
+                      border-radius: 8px;
+                      overflow: hidden;
+                    }
+
+                    // .dropdown {
+                    //   position: absolute;
+                    //   top: 0px;
+                    //   right: 0px;
+                    //   width: 12%;
+                    //   height: 88%;
+
+                    // div {
+                    //   position: relative;
+                    //   width: 100%;
+                    //   height: 100%;
+
+                    select {
+                      width: 100%;
+                      height: 100%;
+                      border: 1px solid #f04a26;
+                      border-radius: 8px;
+                      cursor: pointer;
+
+                      option {
+                        position: relative;
+                        bottom: 0;
+                        left: -50px;
+                      }
+                    }
+                    // }
+                    // }
                   }
                 }
 
