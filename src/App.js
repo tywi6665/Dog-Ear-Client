@@ -217,6 +217,7 @@ function App() {
             timestamp={recipe.timestamp}
             hasMade={recipe.hasMade}
             tags={recipe.tags}
+            tagsList={tagsList}
             notes={recipe.notes}
             url={recipe.url}
           />

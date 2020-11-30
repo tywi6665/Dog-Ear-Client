@@ -5,9 +5,10 @@ import Popup from 'reactjs-popup';
 import StarRatings from 'react-star-ratings';
 import { addItems, deleteEntry, removeItems, updateItem, updateRating } from "../helpers/functions";
 
-const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, hasMade, notes, tags, url }) => {
+const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, hasMade, notes, tags, tagsList, url }) => {
 
     const [tagsToAdd, setTagsToAdd] = useState("");
+    const [quickTag, setQuickTag] = useState("");
     const [notesToAdd, setNotesToAdd] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [open, setOpen] = useState(false);
@@ -18,6 +19,7 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
     const add = (e, field) => {
         e.preventDefault();
         setIsEditing(false);
+        setQuickTag("");
 
         switch (field) {
             case "tags":
@@ -121,6 +123,16 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
         )
     }
 
+    const join = (value) => {
+        setQuickTag(value)
+        if (tagsToAdd.length === 0) {
+            setTagsToAdd(value)
+        } else {
+            let combinedTags = tagsToAdd + "," + value
+            setTagsToAdd(combinedTags)
+        }
+    }
+
     const renderTab2 = () => {
         return (
             <div className="tags-wrapper">
@@ -140,6 +152,18 @@ const Card = ({ docID, title, imgSrc, author, rating, description, timestamp, ha
                             <button
                                 type="submit"
                             >{tagsToAdd.length > 0 ? "Submit" : "Close"}</button>
+                            <select
+                                value={quickTag}
+                                // defaultValue=""
+                                onChange={e => join(e.currentTarget.value)}>
+                                <option value="" disabled={true}>Quick Add Tags</option>
+                                {tagsList.map((tag, i) => (
+                                    <option
+                                        value={tag}
+                                        key={tag + i}
+                                    >{tag}</option>
+                                ))}
+                            </select>
                         </form>
                     ) : (
                             <p className="add" onClick={() => setIsEditing(true)}>+</p>
